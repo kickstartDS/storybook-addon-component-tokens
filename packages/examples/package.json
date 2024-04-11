@@ -1,6 +1,6 @@
 {
   "name": "examples",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
@@ -8,7 +8,7 @@
     "storybook": "^8.0.6"
   },
   "devDependencies": {
-    "@kickstartds/storybook-addon-component-tokens": "*",
+    "@kickstartds/storybook-addon-component-tokens": "^3.0.0",
     "@storybook/addon-controls": "^8.0.6",
     "@storybook/addon-docs": "^8.0.6",
     "@storybook/addon-webpack5-compiler-swc": "^1.0.2",
