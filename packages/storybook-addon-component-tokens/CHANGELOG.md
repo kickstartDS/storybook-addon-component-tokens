@@ -1,3 +1,20 @@
+# v3.0.0 (Thu Apr 11 2024)
+
+#### 💥 Breaking Change
+
+- Storybook 8 [#31](https://github.com/kickstartDS/storybook-addon-component-tokens/pull/31) ([@lmestel](https://github.com/lmestel))
+
+#### 🐛 Bug Fix
+
+- feat: add handlebars regex helper ([@lmestel](https://github.com/lmestel))
+- feat: upgrade to storybook 8; use hbs templates for groups ([@lmestel](https://github.com/lmestel))
+
+#### Authors: 1
+
+- Lukas Mestel ([@lmestel](https://github.com/lmestel))
+
+---
+
 # v2.0.0 (Fri Mar 01 2024)
 
 #### 💥 Breaking Change

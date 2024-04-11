@@ -1,3 +1,16 @@
+# (Thu Apr 11 2024)
+
+#### 💥 Breaking Change
+
+- `@kickstartds/storybook-addon-component-tokens@3.0.0`
+  - Storybook 8 [#31](https://github.com/kickstartDS/storybook-addon-component-tokens/pull/31) ([@lmestel](https://github.com/lmestel))
+
+#### Authors: 1
+
+- Lukas Mestel ([@lmestel](https://github.com/lmestel))
+
+---
+
 # (Fri Mar 01 2024)
 
 #### 💥 Breaking Change
