@@ -2,7 +2,8 @@ import { FC, useMemo, useState } from "react";
 import { components, Placeholder } from "@storybook/components";
 import { PureArgsTable } from "@storybook/blocks";
 import { ArgTypes, Args } from "@storybook/types";
-import { CssPropsParameter } from "../constants";
+import Handlebars, { HelperOptions } from "handlebars";
+import { CssPropsParameter, Group } from "../constants";
 import { isValidColor, groupBySelector } from "./utils";
 import {
   resetStorage,
@@ -10,8 +11,26 @@ import {
   mergeCustomPropertiesWithStorage,
 } from "./storage";
 import { useInjectStyle } from "./useInjectStyle";
+Handlebars.registerHelper(
+  "regex",
+  function (this: Group, options: HelperOptions) {
+    for (const key in options.hash) {
+      if (key in this) {
+        const match = this[key as keyof Group]!.match(
+          new RegExp(options.hash[key]),
+        );
+        if (match) {
+          Object.assign(this, match.groups);
+        }
+      }
+    }
+    return options.fn(this);
+  },
+);
 
 const ResetWrapper = components.resetwrapper;
+const compileHbs = (input = "") =>
+  Handlebars.compile(input, { noEscape: true });
 
 type CssPropsTableProps = CssPropsParameter & { inAddonPanel?: boolean };
 
@@ -21,6 +40,15 @@ export const CssPropsTable: FC<CssPropsTableProps> = ({
   inAddonPanel,
 }) => {
   const customPropertiesJSON = JSON.stringify(customProperties);
+  const renderLabel = useMemo(() => compileHbs(group.label), [group.label]);
+  const renderCategory = useMemo(
+    () => compileHbs(group.category),
+    [group.category],
+  );
+  const renderSubcategory = useMemo(
+    () => compileHbs(group.subcategory),
+    [group.subcategory],
+  );
   const { rows, initialArgs, argsKeys } = useMemo(
     () =>
       Object.entries(customProperties).reduce(
@@ -32,12 +60,15 @@ export const CssPropsTable: FC<CssPropsTableProps> = ({
             }`;
             prev.argsKeys.push(argKey);
 
-            const { label, ...table } = group({ name, ...item });
+            const context = { name, ...item };
             prev.rows[argKey] = {
               control: { type: isValidColor(item.value) ? "color" : "text" },
               defaultValue: item.value,
-              name: label,
-              table,
+              name: renderLabel(context),
+              table: {
+                category: renderCategory(context),
+                subcategory: renderSubcategory(context),
+              },
               description: item.name,
               key: argKey,
               type: { name: "string" },
@@ -53,7 +84,7 @@ export const CssPropsTable: FC<CssPropsTableProps> = ({
           argsKeys: [] as string[],
         },
       ),
-    [customPropertiesJSON, group],
+    [customPropertiesJSON, renderLabel, renderCategory, renderSubcategory],
   );
 
   const [prevProps, setPrevProps] = useState(customPropertiesJSON);

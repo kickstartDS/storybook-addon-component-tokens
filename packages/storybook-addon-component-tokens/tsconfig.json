@@ -6,6 +6,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
     "declaration": true,
     "outDir": "dist/esm",
     "skipDefaultLibCheck": true,
