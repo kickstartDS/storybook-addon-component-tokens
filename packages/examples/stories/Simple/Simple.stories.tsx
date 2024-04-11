@@ -46,3 +46,14 @@ export const SubcategoryGroup: StoryObj = {
     },
   },
 };
+export const RegExpGroup: StoryObj = {
+  parameters: {
+    cssprops: {
+      group: {
+        label: "{{#if media}}{{media}}{{else}}default{{/if}}",
+        category: "{{selector}}",
+        subcategory: "{{#regex name='^--(?<foo>.*)$'}}{{foo}}{{/regex}}",
+      },
+    },
+  },
+};

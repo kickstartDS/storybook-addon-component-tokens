@@ -2,8 +2,8 @@ import { FC, useMemo, useState } from "react";
 import { components, Placeholder } from "@storybook/components";
 import { PureArgsTable } from "@storybook/blocks";
 import { ArgTypes, Args } from "@storybook/types";
-import { compile } from "handlebars";
-import { CssPropsParameter } from "../constants";
+import Handlebars, { HelperOptions } from "handlebars";
+import { CssPropsParameter, Group } from "../constants";
 import { isValidColor, groupBySelector } from "./utils";
 import {
   resetStorage,
@@ -11,9 +11,26 @@ import {
   mergeCustomPropertiesWithStorage,
 } from "./storage";
 import { useInjectStyle } from "./useInjectStyle";
+Handlebars.registerHelper(
+  "regex",
+  function (this: Group, options: HelperOptions) {
+    for (const key in options.hash) {
+      if (key in this) {
+        const match = this[key as keyof Group]!.match(
+          new RegExp(options.hash[key]),
+        );
+        if (match) {
+          Object.assign(this, match.groups);
+        }
+      }
+    }
+    return options.fn(this);
+  },
+);
 
 const ResetWrapper = components.resetwrapper;
-const compileHbs = (input = "") => compile(input, { noEscape: true });
+const compileHbs = (input = "") =>
+  Handlebars.compile(input, { noEscape: true });
 
 type CssPropsTableProps = CssPropsParameter & { inAddonPanel?: boolean };
 
