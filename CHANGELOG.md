@@ -1,3 +1,16 @@
+# (Fri Apr 26 2024)
+
+#### 🐛 Bug Fix
+
+- `@kickstartds/storybook-addon-component-tokens@3.0.1`
+  - Fix handlebars import [#32](https://github.com/kickstartDS/storybook-addon-component-tokens/pull/32) ([@lmestel](https://github.com/lmestel))
+
+#### Authors: 1
+
+- Lukas Mestel ([@lmestel](https://github.com/lmestel))
+
+---
+
 # (Thu Apr 11 2024)
 
 #### 💥 Breaking Change
