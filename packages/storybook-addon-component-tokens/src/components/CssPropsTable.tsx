@@ -2,7 +2,8 @@ import { FC, useMemo, useState } from "react";
 import { components, Placeholder } from "@storybook/components";
 import { PureArgsTable } from "@storybook/blocks";
 import { ArgTypes, Args } from "@storybook/types";
-import Handlebars, { HelperOptions } from "handlebars";
+import Handlebars from "handlebars/lib/handlebars";
+import { HelperOptions } from "handlebars";
 import { CssPropsParameter, Group } from "../constants";
 import { isValidColor, groupBySelector } from "./utils";
 import {
